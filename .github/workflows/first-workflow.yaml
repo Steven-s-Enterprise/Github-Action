@@ -1,0 +1,13 @@
+name: Steven's first workflow
+on: [push]
+
+jobs:
+  run-shell-commands:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print out Steven rocks
+        run: echo "Steven's a wealthy figure in the US"
+      - name: Multiline Command
+        run: |
+            node -v
+            npm -v
