@@ -1,0 +1,23 @@
+name: Working dir and shells
+on: [push]
+jobs:
+    display-wd-info:
+        runs-on: ubutu-latest
+        steps:
+            - name: Display working dir and file list
+              run: |
+                pwd
+                ls -a
+                echo $GITHUB_SHA
+                echo $GITHUB_REPOSITORY
+                echo $GITHUB_WORKSPACE
+    display-wd-info-windows:
+        runs-on: windows-latest
+        steps:
+            - name: Display working dir and file list
+              run: |
+                pwd
+                ls -a
+                echo $GITHUB_SHA
+                echo $GITHUB_REPOSITORY
+                echo $GITHUB_WORKSPACE

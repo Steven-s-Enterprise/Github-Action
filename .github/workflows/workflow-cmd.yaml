@@ -1,4 +1,4 @@
-name: Workflow commnads
+name: Workflow commands
 on: [push]
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
             - name: Group of logs
               run: |
                 echo "::group::My Group title"
-                echo "Inside the group"
+                echo "::Inside the group::"
                 echo "::endgroup::"
             - name: Masking value
               run: echo "::add-mask::Secret String"
