@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/backend/Automobile/.vs
+/backend/Automobile/src/Automobile/bin/Debug/net8.0
+/backend/Automobile/src/Automobile/obj
+/backend/Automobile/src/Automobile/Properties
+/backend/Automobile/src/Automobile.Application/bin/Debug/net8.0
+/backend/Automobile/src/Automobile.Application/obj
+/backend/Automobile/tests/Automobile.Application.Tests/bin/Debug/net8.0
+/backend/Automobile/tests/Automobile.Application.Tests/obj
+/backend/Automobile/src/Automobile/Automobile.Web.csproj.user
