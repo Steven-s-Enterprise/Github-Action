@@ -1,0 +1,57 @@
+name: Pull Request Validation
+run-name: "Pull Request Validation - ${{ github.ref_name }}"
+
+on:
+    pull_request: 
+        branches: [ main ]
+
+    workflow_dispatch: 
+
+jobs:
+    dotnet:
+        defaults:
+            run:
+                working-directory: "backend/Automobile"
+        
+        env:
+            DOTNET_ENVIRONMENT: staging
+            CONFIGURATION: Debug
+        
+        name: .NET
+        runs-on: [ubuntu-latest]
+        # environment: Production
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Install .NET
+              uses: actions/setup-dotnet@v4
+              with:
+                  dotnet-version: '8.0.x'
+            - name: Install .NET EF tools
+              run: dotnet tool install --global dotnet-ef
+
+            - name: Restore
+              run: dotnet restore
+
+            - name: Build
+              run: dotnet build --configuration "${{ env.CONFIGURATION }}" --no-restore
+
+            - name: Test
+              run: dotnet test --configuration "${{ env.CONFIGURATION }}" --logger trx --nologo --results-directory ./testresults --filter "Category!=LocalTest&Category!=DatabaseTest"
+            - name: Publish Test Results
+              uses: dorny/test-reporter@v1
+              if: success() || failure()
+              with:
+                name: "Test Results"
+                path: "backend/testresults/**/*.trx"
+                reporter: dotnet-trx
+                list-tests: "failed"
+
+            - name: Upload Test Results
+              uses: actions/upload-artifact@v4
+              with:
+                name: Test Results
+                path: backend/testresults
+                retention-days: 1
